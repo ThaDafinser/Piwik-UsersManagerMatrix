@@ -1,0 +1,16 @@
+{
+  "name": "UsersManagerMatrix",
+  "version": "0.1.0",
+  "description": "Manage users easiert than currently",
+  "keywords": ["UserManager", "Matrix", "ThaDafinser"],
+  "license": "GPL v3",
+  "homepage": "https://github.com/ThaDafinser/UsersManagerMatrix",
+  "authors": [
+    {"name": "Martin Keckeis", "homepage": "https://github.com/thadafinser"}
+  ],
+  "theme": false,
+  "require": {
+    "piwik": "2.3.0",
+    "php": "5.4.0"
+  }
+}
