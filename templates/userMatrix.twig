@@ -1,0 +1,64 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+
+<div class="entityContainer">
+	<table class="entityTable dataTable">
+		<thead>
+		<tr>
+			<th style="vertical-align: bottom">
+				User
+			</th>
+			{% for siteId in sitesIdAvailable %}
+				<th style="vertical-align: bottom">
+ 					<span class="rotated-text"><span class="rotated-text__inner">
+						{{ sites[siteId]['name'] }}
+					</span></span>
+				</th>
+			{% endfor %}
+			
+			<th style="vertical-align: bottom">
+				User
+			</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user['login'] }}</td>
+					
+					{% for siteId in sitesIdAvailable %}
+						<td>
+							{% if sitesAccess[siteId][user['login']] is defined %}
+								{% if sitesAccess[siteId][user['login']] == 'admin' %}
+									<img src="plugins/UsersManagerMatrix/images/green.png" alt="{{ sitesAccess[siteId][user['login']] }}" title="{{ sitesAccess[siteId][user['login']] }}" />
+								{% else %}
+									<img src="plugins/UsersManagerMatrix/images/yellow.png" alt="{{ sitesAccess[siteId][user['login']] }}" title="{{ sitesAccess[siteId][user['login']] }}" />
+								{% endif %}
+							{% elseif user['superuser_access'] == 1 %}
+		                        <img src="plugins/UsersManagerMatrix/images/green.png" alt="superuser" title="superuser" />
+							{% else %}
+								<img src="plugins/UsersManagerMatrix/images/empty.png" alt="no access" title="no access" />
+							{% endif %}
+						</td>
+					{% endfor %}
+					
+					<td>{{ user['login'] }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="{{ sitesIdAvailable|length + 2}}">
+					<h3>Legend</h3>
+					<img src="plugins/UsersManagerMatrix/images/green.png" /> Admin access (can also be superuser)<br />
+					<img src="plugins/UsersManagerMatrix/images/yellow.png" /> View access<br />
+					<img src="plugins/UsersManagerMatrix/images/empty.png" /> No access<br />
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+{% endblock %}
