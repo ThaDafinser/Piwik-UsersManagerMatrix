@@ -18,16 +18,27 @@ class UsersManagerMatrix extends \Piwik\Plugin
 
     public function getListHooksRegistered()
     {
-        return array(
+        return [
+            'AssetManager.getJavaScriptFiles' => 'getJsFiles',
             'AssetManager.getStylesheetFiles' => 'getStylesheetFiles'
-        );
+        ];
     }
-    
+
+    /**
+     * Return list of plug-in specific JavaScript files to be imported by the asset manager
+     *
+     * @see Piwik\AssetManager
+     */
+    public function getJsFiles(&$jsFiles)
+    {
+        $jsFiles[] = 'plugins/UsersManagerMatrix/javascripts/usersManagerMatrix.js';
+    }
+
     /**
      * Get CSS files
      */
     public function getStylesheetFiles(&$stylesheets)
     {
-        $stylesheets[] = "plugins/UsersManagerMatrix/stylesheets/usersManagerMatrix.less";
+        $stylesheets[] = 'plugins/UsersManagerMatrix/stylesheets/usersManagerMatrix.less';
     }
 }

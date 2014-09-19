@@ -13,6 +13,9 @@
 				<th style="vertical-align: bottom">
  					<span class="rotated-text"><span class="rotated-text__inner">
 						{{ sites[siteId]['name'] }}
+						<a href="#" class="allWebsites" data-site="{{ siteId }}">
+							<img title="Edit" src="plugins/Morpheus/images/ico_edit.png">
+						</a>
 					</span></span>
 				</th>
 			{% endfor %}
@@ -26,13 +29,22 @@
 		<tbody>
 			{% for user in users %}
 				<tr>
-					<td>{{ user['login'] }}</td>
+					<td>
+						<strong>{{ user['login'] }}</strong><br />
+						
+						{{ user['alias'] }} 
+						<a href="#" class="allUsers"  data-site="{{ user['login'] }}">
+							<img title="Edit" src="plugins/Morpheus/images/ico_edit.png">
+						</a>
+					</td>
 					
 					{% for siteId in sitesIdAvailable %}
 						<td>
 							{% if sitesAccess[siteId][user['login']] is defined %}
 								{% if sitesAccess[siteId][user['login']] == 'admin' %}
-									<img src="plugins/UsersManagerMatrix/images/green.png" alt="{{ sitesAccess[siteId][user['login']] }}" title="{{ sitesAccess[siteId][user['login']] }}" />
+									<a href="#" id="openMenuBtn">
+										<img src="plugins/UsersManagerMatrix/images/green.png" alt="{{ sitesAccess[siteId][user['login']] }}" title="{{ sitesAccess[siteId][user['login']] }}" />
+									</a>
 								{% else %}
 									<img src="plugins/UsersManagerMatrix/images/yellow.png" alt="{{ sitesAccess[siteId][user['login']] }}" title="{{ sitesAccess[siteId][user['login']] }}" />
 								{% endif %}
@@ -44,7 +56,10 @@
 						</td>
 					{% endfor %}
 					
-					<td>{{ user['login'] }}</td>
+					<td>
+						<strong>{{ user['login'] }}</strong><br />
+						{{ user['alias'] }}
+					</td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -59,6 +74,22 @@
 			</tr>
 		</tfoot>
 	</table>
+	
+	<ul id="contextMenuAllWebsites" style="width: 200px; position: absolute; display: none;">
+		<li><strong>Apply to all users</strong></li>
+		<li>No access</li>
+		<li>View</li>
+		<li>Admin</li>
+	</ul>
+	
+	<ul id="contextMenuAllUsers" style="width: 200px; position: absolute; display: none;">
+		<li><strong>Apply to all websites</strong></li>
+		<li>No access</li>
+		<li>
+			<a href="#">View</a>
+		</li>
+		<li>Admin</li>
+	</ul>
 </div>
 
 {% endblock %}
